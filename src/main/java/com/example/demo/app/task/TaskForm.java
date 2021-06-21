@@ -11,28 +11,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class TaskForm {
 
-    @Digits(integer = 1, fraction = 0)
-    private int typeId;
+	@Digits(integer = 1, fraction = 0)
+	private int typeId;
 
-    @NotNull (message = "タイトルを入力してください。")
-    @Size(min = 1, max = 20, message = "20文字以内で入力してください。")
-    private String title;
+	@NotNull(message = "タイトルを入力してください。")
+	@Size(min = 1, max = 20, message = "20文字以内で入力してください。")
+	private String title;
 
-    @NotNull (message = "内容を入力してください。")
-    private String detail;
+	@NotNull(message = "内容を入力してください。")
+	private String detail;
 
-    @NotNull (message = "期限を設定してください。")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Future (message = "期限が過去に設定されています。")
-    private LocalDateTime deadline;
+	@NotNull(message = "期限を設定してください。")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@Future(message = "期限が過去に設定されています。")
+	private LocalDateTime deadline;
 
-    private boolean newTask;
-    
-    public TaskForm() {}
+	private boolean newTask;
+
+	public TaskForm() {
+	}
 
 	public TaskForm(int typeId,
 			String title,
-			String detail, 
+			String detail,
 			LocalDateTime deadline,
 			boolean newTask) {
 		this.typeId = typeId;
@@ -73,7 +74,7 @@ public class TaskForm {
 	public void setDeadline(LocalDateTime deadline) {
 		this.deadline = deadline;
 	}
-	
+
 	public boolean isNewTask() {
 		return newTask;
 	}

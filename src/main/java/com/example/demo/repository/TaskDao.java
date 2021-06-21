@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.example.demo.entity.Task;
 
-public interface TaskDao{
+public interface TaskDao {
 
 	List<Task> findAll();
 

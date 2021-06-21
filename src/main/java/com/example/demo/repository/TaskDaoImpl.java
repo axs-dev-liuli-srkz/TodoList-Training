@@ -37,20 +37,20 @@ public class TaskDaoImpl implements TaskDao {
 		List<Task> list = null;
 
 		//二つのテーブルのデータをTaskにまとめる
-		for(Map<String, Object> result : resultList) {
+		for (Map<String, Object> result : resultList) {
 
 			Task task = new Task();
-			task.setId((int)result.get("id"));
-			task.setUserId((int)result.get("user_id"));
-			task.setTypeId((int)result.get("type_id"));
-			task.setTitle((String)result.get("title"));
-			task.setDetail((String)result.get("detail"));
+			task.setId((int) result.get("id"));
+			task.setUserId((int) result.get("user_id"));
+			task.setTypeId((int) result.get("type_id"));
+			task.setTitle((String) result.get("title"));
+			task.setDetail((String) result.get("detail"));
 			task.setDeadline(((Timestamp) result.get("deadline")).toLocalDateTime());
 
 			TaskType type = new TaskType();
-			type.setId((int)result.get("type_id"));
-			type.setType((String)result.get("type"));
-			type.setComment((String)result.get("comment"));
+			type.setId((int) result.get("type_id"));
+			type.setType((String) result.get("type"));
+			type.setComment((String) result.get("comment"));
 
 			//TaskにTaskTypeをセット
 
@@ -70,17 +70,17 @@ public class TaskDaoImpl implements TaskDao {
 		Map<String, Object> result = null;
 
 		Task task = new Task();
-		task.setId((int)result.get("id"));
-		task.setUserId((int)result.get("user_id"));
-		task.setTypeId((int)result.get("type_id"));
-		task.setTitle((String)result.get("title"));
-		task.setDetail((String)result.get("detail"));
+		task.setId((int) result.get("id"));
+		task.setUserId((int) result.get("user_id"));
+		task.setTypeId((int) result.get("type_id"));
+		task.setTitle((String) result.get("title"));
+		task.setDetail((String) result.get("detail"));
 		task.setDeadline(((Timestamp) result.get("deadline")).toLocalDateTime());
 
 		TaskType type = new TaskType();
-		type.setId((int)result.get("type_id"));
-		type.setType((String)result.get("type"));
-		type.setComment((String)result.get("comment"));
+		type.setId((int) result.get("type_id"));
+		type.setType((String) result.get("type"));
+		type.setComment((String) result.get("comment"));
 		task.setTaskType(type);
 
 		//削除してください
@@ -94,13 +94,13 @@ public class TaskDaoImpl implements TaskDao {
 	@Override
 	public void insert(Task task) {
 		jdbcTemplate.update("INSERT INTO task(user_id, type_id, title, detail, deadline) VALUES(?, ?, ?, ?,?)",
-				 task.getUserId(), task.getTypeId(), task.getTitle(), task.getDetail(), task.getDeadline() );
+				task.getUserId(), task.getTypeId(), task.getTitle(), task.getDetail(), task.getDeadline());
 	}
 
 	@Override
 	public int update(Task task) {
 		return jdbcTemplate.update("UPDATE task SET type_id = ?, title = ?, detail = ?,deadline = ? WHERE id = ?",
-				task.getTypeId(), task.getTitle(), task.getDetail(), task.getDeadline(), task.getId() );
+				task.getTypeId(), task.getTitle(), task.getDetail(), task.getDeadline(), task.getId());
 	}
 
 	@Override
@@ -120,20 +120,20 @@ public class TaskDaoImpl implements TaskDao {
 		List<Task> list = new ArrayList<>();
 
 		//二つのテーブルのデータをTaskにまとめる
-		for(Map<String, Object> result : resultList) {
+		for (Map<String, Object> result : resultList) {
 
 			Task task = new Task();
-			task.setId((int)result.get("id"));
-			task.setUserId((int)result.get("user_id"));
-			task.setTypeId((int)result.get("type_id"));
-			task.setTitle((String)result.get("title"));
-			task.setDetail((String)result.get("detail"));
+			task.setId((int) result.get("id"));
+			task.setUserId((int) result.get("user_id"));
+			task.setTypeId((int) result.get("type_id"));
+			task.setTitle((String) result.get("title"));
+			task.setDetail((String) result.get("detail"));
 			task.setDeadline(((Timestamp) result.get("deadline")).toLocalDateTime());
 
 			TaskType type = new TaskType();
-			type.setId((int)result.get("type_id"));
-			type.setType((String)result.get("type"));
-			type.setComment((String)result.get("comment"));
+			type.setId((int) result.get("type_id"));
+			type.setType((String) result.get("type"));
+			type.setComment((String) result.get("comment"));
 			task.setTaskType(type);
 
 			list.add(task);

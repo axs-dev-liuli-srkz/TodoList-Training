@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Aspect
 @Component
 public class AnnotationPointcutAspect {
-    @Before("@annotation(myAnnotation)")
-    public void within(JoinPoint jp, MyAnnotation myAnnotation) {
-        System.out.println("@annotation Pointcut: " + jp.getSignature() + " (" + LocalDateTime.now() + ")");
-        System.out.println("MyAnnotation value: " + myAnnotation.value()); // アノテーションの値を取得
-    }
+	@Before("@annotation(myAnnotation)")
+	public void within(JoinPoint jp, MyAnnotation myAnnotation) {
+		System.out.println("@annotation Pointcut: " + jp.getSignature() + " (" + LocalDateTime.now() + ")");
+		System.out.println("MyAnnotation value: " + myAnnotation.value()); // アノテーションの値を取得
+	}
 }

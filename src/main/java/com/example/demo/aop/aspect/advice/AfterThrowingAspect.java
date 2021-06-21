@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Aspect
 @Component
 public class AfterThrowingAspect {
-    @AfterThrowing(value = "execution(* *..calc..*ServiceImpl.*(..))", throwing = "e")
-    public void afterThrowing(JoinPoint jp, IllegalArgumentException e) {
-        System.out.println("AfterThrowing: " + jp.getSignature() + " (" + LocalDateTime.now() + ")");
-        e.printStackTrace();
-    }
+	@AfterThrowing(value = "execution(* *..calc..*ServiceImpl.*(..))", throwing = "e")
+	public void afterThrowing(JoinPoint jp, IllegalArgumentException e) {
+		System.out.println("AfterThrowing: " + jp.getSignature() + " (" + LocalDateTime.now() + ")");
+		e.printStackTrace();
+	}
 }
