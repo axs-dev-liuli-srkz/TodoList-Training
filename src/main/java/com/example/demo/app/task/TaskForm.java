@@ -75,7 +75,7 @@ public class TaskForm {
 		this.deadline = deadline;
 	}
 
-	public boolean isNewTask() {
+	public boolean getIsNewTask() {
 		return isNewTask;
 	}
 
