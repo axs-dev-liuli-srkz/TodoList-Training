@@ -74,7 +74,7 @@ public class TaskController {
 
 			return "";
 		} else {
-			taskForm.setNewTask(true);
+			taskForm.setIsNewTask(true);
 			model.addAttribute("taskForm", taskForm);
 			List<Task> list = taskService.findAll();
 			model.addAttribute("list", list);
@@ -182,7 +182,7 @@ public class TaskController {
 		}
 
 		//新規登録のためNewTaskにtrueをセット
-		taskForm.setNewTask(true);
+		taskForm.setIsNewTask(true);
 
 		model.addAttribute("taskForm", taskForm);
 		List<Task> list = taskService.findAll();
@@ -207,7 +207,7 @@ public class TaskController {
 			Model model) {
 
 		//新規登録か更新かを判断する仕掛け
-		taskForm.setNewTask(true);
+		taskForm.setIsNewTask(true);
 
 		//2-6 taskService.findByTypeを用いてTaskのリストを取得する
 		List<Task> list = null;
@@ -250,7 +250,7 @@ public class TaskController {
 		taskForm.setTitle(task.getTitle());
 		taskForm.setDetail(task.getDetail());
 		taskForm.setDeadline(task.getDeadline());
-		taskForm.setNewTask(false);
+		taskForm.setIsNewTask(false);
 
 		return taskForm;
 	}

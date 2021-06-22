@@ -26,7 +26,7 @@ public class TaskForm {
 	@Future(message = "期限が過去に設定されています。")
 	private LocalDateTime deadline;
 
-	private boolean newTask;
+	private boolean isNewTask;
 
 	public TaskForm() {
 	}
@@ -35,12 +35,12 @@ public class TaskForm {
 			String title,
 			String detail,
 			LocalDateTime deadline,
-			boolean newTask) {
+			boolean isNewTask) {
 		this.typeId = typeId;
 		this.title = title;
 		this.detail = detail;
 		this.deadline = deadline;
-		this.newTask = newTask;
+		this.isNewTask = isNewTask;
 	}
 
 	public int getTypeId() {
@@ -76,10 +76,10 @@ public class TaskForm {
 	}
 
 	public boolean isNewTask() {
-		return newTask;
+		return isNewTask;
 	}
 
-	public void setNewTask(boolean newTask) {
-		this.newTask = newTask;
+	public void setIsNewTask(boolean isNewTask) {
+		this.isNewTask = isNewTask;
 	}
 }
