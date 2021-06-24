@@ -7,7 +7,7 @@
 <body>
 <h1 th:text="${title}">ようこそ</h1>
 <p th:if="${complete}" th:text="${complete}"></p>
-<form method="POST" th:action="${taskForm.newTask}? @{/task/insert} : @{/task/update}" th:object="${taskForm}">
+<form method="POST" th:action="${taskForm.isNewTask}? @{/task/insert} : @{/task/update}" th:object="${taskForm}">
 	<label>タスクタイプ（選択してください）：</label>
 	<select name="typeId">
 	<option value="1" th:selected="*{typeId == 1}">緊急</option>
@@ -27,7 +27,7 @@
 	<input  th:if="${taskId}" type="hidden" name="taskId" th:value="${taskId}">
 	<input type="submit" value="送信">
 </form>
-<div th:if="${taskForm.newTask}" style="margin:10px">
+<div th:if="${taskForm.isNewTask}" style="margin:10px">
 <h3>タスク　編集削除</h3>
 <table>
 	<tr th:each="obj : ${list}">
@@ -50,7 +50,7 @@
 <!-- 2-7 絞り込みボタンを作成する -->
 <br>
 <!-- 2-8 絞り込み解除ボタンを作成する -->
-<p th:unless="${taskForm.newTask}"><a href="#" th:href="@{/task}">戻る</a></p>
+<p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/task}">戻る</a></p>
 
 </body>
 </html>

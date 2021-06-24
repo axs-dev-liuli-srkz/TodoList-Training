@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ public class TaskController {
 
 	private final TaskService taskService;
 
+	@Autowired
 	public TaskController(TaskService taskService) {
 		this.taskService = taskService;
 	}
@@ -42,12 +44,13 @@ public class TaskController {
 	public String task(TaskForm taskForm, Model model) {
 
 		//新規登録か更新かを判断する仕掛け
+		taskForm.setIsNewTask(true);
 
 		//Taskのリストを取得する
-
-		model.addAttribute("list", "");
+		List<Task> list = taskService.findAll();
+		model.addAttribute("list", list);
 		model.addAttribute("title", "タスク一覧");
-
+		model.addAttribute("taskForm", taskForm);
 		return "task/index";
 	}
 
@@ -64,17 +67,14 @@ public class TaskController {
 			BindingResult result,
 			Model model) {
 
+		Task task = makeTask(taskForm, 0);
+
 		if (!result.hasErrors()) {
-			//削除してください
-			Task task = null;
-
-			//TaskFormのデータをTaskに格納
-
 			//一件挿入後リダイレクト
-
-			return "";
+			taskService.insert(task);
+			return "redirect:/task";
 		} else {
-			taskForm.setNewTask(true);
+			taskForm.setIsNewTask(true);
 			model.addAttribute("taskForm", taskForm);
 			List<Task> list = taskService.findAll();
 			model.addAttribute("list", list);
@@ -82,6 +82,9 @@ public class TaskController {
 			return "task/index";
 		}
 	}
+
+	//@PathVariable /task/{id}
+	//@RequestParam /task?id=3
 
 	/**
 	 * 一件タスクデータを取得し、フォーム内に表示
@@ -97,12 +100,17 @@ public class TaskController {
 			Model model) {
 
 		//Taskを取得(Optionalでラップ)
+		Optional<Task> taskOpt = taskService.getTask(id);
 
 		//TaskFormへの詰め直し
+		Optional<TaskForm> taskFormOpt = taskOpt.map(task -> makeTaskForm(task));
 
 		//TaskFormがnullでなければ中身を取り出し
+		if (taskFormOpt.isPresent()) {
+			taskForm = taskFormOpt.get();
+		}
 
-		model.addAttribute("taskForm", "");
+		model.addAttribute("taskForm", taskForm);
 		List<Task> list = taskService.findAll();
 		model.addAttribute("list", list);
 		model.addAttribute("taskId", id);
@@ -129,10 +137,12 @@ public class TaskController {
 
 		if (!result.hasErrors()) {
 			//TaskFormのデータをTaskに格納
+			Task task = makeTask(taskForm, taskId);
 
 			//更新処理、フラッシュスコープの使用、リダイレクト（個々の編集ページ）
-
-			return "";
+			taskService.update(task);
+			redirectAttributes.addFlashAttribute("complete", "更新完了しました");
+			return "redirect:/task/" + taskId;
 		} else {
 			model.addAttribute("taskForm", taskForm);
 			model.addAttribute("title", "タスク一覧");
@@ -152,8 +162,8 @@ public class TaskController {
 			Model model) {
 
 		//タスクを一件削除しリダイレクト
-
-		return "";
+		taskService.deleteById(id);
+		return "redirect:/task";
 	}
 
 	/**
@@ -182,7 +192,7 @@ public class TaskController {
 		}
 
 		//新規登録のためNewTaskにtrueをセット
-		taskForm.setNewTask(true);
+		taskForm.setIsNewTask(true);
 
 		model.addAttribute("taskForm", taskForm);
 		List<Task> list = taskService.findAll();
@@ -207,7 +217,7 @@ public class TaskController {
 			Model model) {
 
 		//新規登録か更新かを判断する仕掛け
-		taskForm.setNewTask(true);
+		taskForm.setIsNewTask(true);
 
 		//2-6 taskService.findByTypeを用いてTaskのリストを取得する
 		List<Task> list = null;
@@ -250,7 +260,7 @@ public class TaskController {
 		taskForm.setTitle(task.getTitle());
 		taskForm.setDetail(task.getDetail());
 		taskForm.setDeadline(task.getDeadline());
-		taskForm.setNewTask(false);
+		taskForm.setIsNewTask(false);
 
 		return taskForm;
 	}
