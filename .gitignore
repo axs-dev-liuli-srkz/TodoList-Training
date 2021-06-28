@@ -7,6 +7,9 @@ build/
 
 /bin
 
+### Property File ###
+src/main/resources/application.yml
+
 ### STS ###
 .apt_generated
 .classpath
