@@ -1,11 +1,11 @@
-CREATE TABLE task_type (
+CREATE TABLE IF NOT EXISTS task_type (
   id int(2) NOT NULL,
   type varchar(20) NOT NULL,
   comment varchar(50) DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE task (
+CREATE TABLE IF NOT EXISTS task (
   id int(5) NOT NULL AUTO_INCREMENT,
   user_id int(5) NOT NULL,
   type_id int(2) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE task (
   PRIMARY KEY (id)
 ) ;
 
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS  user (
   id int(11) NOT NULL AUTO_INCREMENT,
   username varchar(50) NOT NULL,
   email varchar(70) NOT NULL,
