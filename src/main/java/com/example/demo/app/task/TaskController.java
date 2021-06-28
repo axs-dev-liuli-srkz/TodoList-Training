@@ -50,6 +50,7 @@ public class TaskController {
 		List<Task> list = taskService.findAll();
 		model.addAttribute("list", list);
 		model.addAttribute("title", "タスク一覧");
+		model.addAttribute("inputTitle", "新規タスク");
 		model.addAttribute("taskForm", taskForm);
 		return "task/index";
 	}
@@ -79,6 +80,7 @@ public class TaskController {
 			List<Task> list = taskService.findAll();
 			model.addAttribute("list", list);
 			model.addAttribute("title", "タスク一覧（バリデーション）");
+			model.addAttribute("inputTitle", "新規タスク");
 			return "task/index";
 		}
 	}
@@ -115,6 +117,7 @@ public class TaskController {
 		model.addAttribute("list", list);
 		model.addAttribute("taskId", id);
 		model.addAttribute("title", "更新用フォーム");
+		model.addAttribute("inputTitle", "タスク更新");
 
 		return "task/index";
 	}
@@ -146,6 +149,7 @@ public class TaskController {
 		} else {
 			model.addAttribute("taskForm", taskForm);
 			model.addAttribute("title", "タスク一覧");
+			model.addAttribute("inputTitle", "新規タスク");
 			return "task/index";
 		}
 	}
